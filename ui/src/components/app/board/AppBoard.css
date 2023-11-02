@@ -1,0 +1,113 @@
+
+
+
+.appNodeLink {
+    text-decoration: none;
+}
+
+.appCodeTitleStyle {
+    color: white;
+    font-size: 175%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.appBoardStyle{
+    margin-top: -100px;
+}
+
+.boardBackLink {
+    display: block;
+    float: left;
+    margin-left: 3%;
+    color: white;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.blankBox {
+    background-color: #202c30;
+}
+
+.bodyWrapperGridBox-err {
+    background-color: crimson;
+    /*color: blue;*/
+    border: 2px solid yellow;
+    /*animation: blinker 1s linear infinite;*/
+    animation: hcblinker 1s infinite;
+}
+
+.flash {
+    animation-name: alertFlash;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+}
+
+.warnflash {
+    animation-name: warningFlash;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+}
+
+@keyframes warningFlash {
+
+    0% {
+        background-color: darkgreen;
+        color: white;
+    }
+
+    20% {
+        background-color: lightgreen;
+        color: blue;
+    }
+
+    40% {
+        background-color: chartreuse;
+        color: blue;
+    }
+
+    60% {
+        background-color: chartreuse;
+        color: blue;
+    }
+
+    80% {
+        background-color: lightgreen;
+        color: blue;
+    }
+
+    100% {
+        background-color: darkgreen;
+        color: white;
+    }
+}
+
+@keyframes alertFlash {
+
+    0% {
+        background-color: crimson;
+        color: white;
+    }
+
+    25% {
+        background-color: orange;
+        color: blue;
+    }
+
+    50% {
+        background-color: crimson;
+        color: blue;
+    }
+
+    75% {
+        background-color: orange;
+        color: blue;
+    }
+
+    100% {
+        background-color: crimson;
+        color: white;
+    }
+}

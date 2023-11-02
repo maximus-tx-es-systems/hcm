@@ -1,0 +1,151 @@
+.nodeStatusOutput{
+    background-color: white;
+}
+
+.nodeStatusTable{
+    width: 80%;
+    height: 40%;
+    background-color: lightblue;
+}
+
+.appCodeTitleStyle{
+    display: block;
+    margin-left: -100px;
+}
+
+.nodeAppCodeStyle {
+    color: greenyellow;
+    font-size: 175%;
+    display: block;
+}
+
+.nodeAppCodeWarningStyle {
+    color: crimson;
+    font-size: 175%;
+}
+
+.nodeAppCodeErrorStyle {
+    color: white;
+    font-size: 175%;
+}
+
+tr:nth-child(even) {
+    width: 25%;
+    background-color: cyan;
+}
+
+tr:nth-child(odd) {
+    width: 25%;
+    background-color: lightcyan;
+}
+
+.nodeStatusTable td{
+    width: 25%;
+    background-color: lightcyan;
+}
+
+.nodeStatusErrTable td {
+    width: 25%;
+    background-color: lightcyan;
+
+}
+.nodestatusKeyStyle {
+    text-align: right;
+    color: blue;
+}
+
+.nodestatusValueStyle {
+    padding-left: 20px;
+    color: darkgreen;
+}
+.nodestatusValueWarningStyle {
+    padding-left: 20px;
+    color: crimson;
+}
+.nodestatusValueErrorStyle {
+    padding-left: 20px;
+    color: crimson;
+}
+
+.nodeStatusBackLink {
+    display: block;
+    float: left;
+    margin-left: 2%;
+    margin-top: 5px;
+    color: white;
+    text-decoration: dashed;
+    cursor:pointer;
+}
+
+.nodesStatusActionWrapper {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    width: 96%;
+    color: white;
+    grid-gap: 2px;
+    background-color: #202c30;
+    color: #444;
+    margin-left: 5%;
+    margin-top: -10px;
+    font-size: 75%;
+}
+
+.nodesStatusActionWrapperGridBox {
+    text-align: center;
+    background-color: green;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px;
+    font-size: 150%;
+    line-height: 550%;
+}
+
+button.nodeStatusActionBtn {
+    border-color: lightgrey;
+    background-color: grey;
+    margin-right: 8%;
+    width: 250px;
+    padding: 0.3em 1.2em;
+    border: 0.16em solid rgba(255,255,255,0);
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 300;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    text-align: center;
+    transition: all 0.2s;
+    color: white;
+    background-color: lightseagreen;
+}
+
+button.nodeStatusActionBtn:hover {
+    border: 0.16em solid rgba(255,255,255,0);
+    background-color: yellow;
+    color: black;
+}
+
+button.nodeStatusActionBtnfalse {
+    border-color: rgba(255,255,255,0);
+    background-color: #f14e4e;
+    border: 0.16em solid rgba(255,255,255,0);
+}
+
+button.nodeStatusActionBtntrue, button.triggerBtntrue {
+    border-color: rgba(255,255,255,0);
+    background-color: #4e9af1;
+    border: 0.16em solid rgba(255,255,255,0);
+}
+.detailedErrorDescStyle {
+    margin-top: 2%;
+    width: 80%;
+    height: 30vh;
+    font-size: 150%;
+    scroll-behavior: auto;
+    visibility: visible;
+}
+
+.detailedErrorDescHiddenStyle {
+    visibility: hidden;
+}

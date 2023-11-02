@@ -1,0 +1,26 @@
+.nodesBoardWrapper {
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%;
+    width: 96%;
+    color: white;
+    grid-gap: 2px;
+    background-color: #202c30;
+    color: #444;
+    margin-left: 50px;
+    margin-top: -10px;
+    font-size: 75%;
+}
+
+.appBoardListTitleStyle {
+    color: white;
+    display: block;
+    float: left;
+    margin-left: 3%;
+    font-size: 120%;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+.nodesBoardStyle{
+    margin-top: 100px;
+}
