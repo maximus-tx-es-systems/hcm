@@ -79,7 +79,7 @@ tr:nth-child(odd) {
 
 .nodesStatusActionWrapper {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 25% 25% 25% 25%;
     width: 96%;
     color: white;
     grid-gap: 2px;

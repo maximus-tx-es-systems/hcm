@@ -90,12 +90,10 @@ public class HealthCheckService {
 	
 	private List<String> appsConfigList;
 	
-	private Map<String, String> reverseAppCodeMap;	
+	private Map<String, String> reverseNodeCodeMap;	
 	
 	private Map<String, String> errorDescAppCodeMap;
-	
-//	private RestTemplate restTemplate;
-	
+		
 	@Autowired
 	public void init(Environment environment) throws Exception{
 		this.environment= environment;
@@ -103,7 +101,7 @@ public class HealthCheckService {
 		mainAppCodeStatusMap = new LinkedHashMap<>();
 		appsConfigList = new ArrayList<>();
 		appsConfigMap = new HashMap<>();
-		reverseAppCodeMap = new HashMap<>();
+		reverseNodeCodeMap = new HashMap<>();
 		errorDescAppCodeMap = new HashMap<>();
 		
 		try{
@@ -147,7 +145,7 @@ public class HealthCheckService {
 	
 	public StatusDTO getAppCodeStatus(String appCode) throws Exception{
 		AppConfigDTO appConfig = getAppConfig(appCode);
-		return appConfig.getConsolidatedAppCodeStatusMap().get(appCode);
+		return appConfig.getConsolidatedNodeCodeStatusMap().get(appCode);
 	}
 	
 	public List<String> getAllhomePageAppCodeList(){
@@ -166,7 +164,7 @@ public class HealthCheckService {
 		String detailedErrorDesc = errorDescAppCodeMap.get(appCode);
 		if(detailedErrorDesc == null) {
 			AppConfigDTO appConfig = getAppConfig(appCode);
-			StatusDTO statusDTO = appConfig.getConsolidatedAppCodeStatusMap().get(appCode);
+			StatusDTO statusDTO = appConfig.getConsolidatedNodeCodeStatusMap().get(appCode);
 			detailedErrorDesc = statusDTO.getError();
 		}
 		return new KeyValueDTO("detailErrorDesc", detailedErrorDesc);
@@ -174,7 +172,7 @@ public class HealthCheckService {
 	
 	public KeyValueDTO getAppCodeEmailStatus(String appCode) throws Exception{
 		AppConfigDTO appConfig = getAppConfig(appCode);
-		StatusDTO statusDTO = appConfig.getConsolidatedAppCodeStatusMap().get(appCode);
+		StatusDTO statusDTO = appConfig.getConsolidatedNodeCodeStatusMap().get(appCode);
 		if(statusDTO!=null) {
 			statusDTO.setNotifyByEmail(statusDTO.isNotifyByEmail()?true:false);
 		}
@@ -183,12 +181,28 @@ public class HealthCheckService {
 	
 	public StatusDTO updateEmailStatus(String appCode, KeyValueDTO keyValueDTO) throws Exception{
 		AppConfigDTO appConfig = getAppConfig(appCode);
-		StatusDTO statusDTO = appConfig.getConsolidatedAppCodeStatusMap().get(appCode);
+		StatusDTO statusDTO = appConfig.getConsolidatedNodeCodeStatusMap().get(appCode);
 		if(statusDTO!=null && keyValueDTO!=null && "notifyByEmail".equalsIgnoreCase(keyValueDTO.getKey())) {
 			statusDTO.setNotifyByEmail("true".equalsIgnoreCase(keyValueDTO.getValue())?true:false);
 		}else {
 			throw new Exception("Invalid Payload");
 		}
+		return getAppCodeStatus(appCode);
+	}
+	
+	public StatusDTO updateActiveStatus(String appCode, KeyValueDTO keyValueDTO) throws Exception{
+		AppConfigDTO appConfig = getAppConfig(appCode);
+		StatusDTO statusDTO = appConfig.getConsolidatedNodeCodeStatusMap().get(appCode);
+		if(statusDTO!=null && keyValueDTO!=null && "active".equalsIgnoreCase(keyValueDTO.getKey())) {
+			statusDTO.setActive("true".equalsIgnoreCase(keyValueDTO.getValue())?true:false);
+		}else {
+			throw new Exception("Invalid Payload");
+		}
+		
+		if(appConfig.getDefaultNodeCode().equalsIgnoreCase(appCode)) {
+			appConfig.setActive(statusDTO.isActive());
+		}
+		
 		return getAppCodeStatus(appCode);
 	}
 	
@@ -229,9 +243,9 @@ public class HealthCheckService {
 	public String monitorTask(String appCode) throws Exception {
 		AppConfigDTO appConfig = getAppConfig(appCode);
 		List<HealthCheckModel> unhealthyHealthCheckModelList = new ArrayList<>();
-		logger.info("appCode={} appConfig.getDefaultAppCode()= {}", appCode, appConfig.getDefaultAppCode());
-		String appUriCode = appConfig.getDefaultAppCode();
-		String appDefaultUri = getAppCodeUri(appUriCode);
+		logger.info("appCode={} appConfig.getDefaultAppCode()= {}", appCode, appConfig.getDefaultNodeCode());
+		String appUriCode = appConfig.getDefaultNodeCode();
+		String appDefaultUri = getNodeCodeUri(appUriCode);
 		logger.info("Trying to read the app url for app code : {} appUrl: {}", appUriCode, appDefaultUri);
 		HealthCheckModel healthCheckModel = checkAppHealthStatus(appUriCode, appDefaultUri);
 		appConfig.setStatus(healthCheckModel.getStatus());
@@ -239,10 +253,8 @@ public class HealthCheckService {
 		appConfig.setErrSummary(healthCheckModel.getErrSummary());
 		appConfig.setLastCheckedOn(new Date());
 		statusMap.put(appCode, healthCheckModel);
-		monitorConsolidatedAppCodes(appConfig);
-		if (appCode.equals("MAXeQC") || appCode.equals("EID")) {
-			appConfig.setWarningOn("Y"); // temporarily hard coded this for testing purpose
-		}
+		monitorConsolidatedNodeCodes(appConfig);
+		
 		if (appConfig.isNotifyByEmail() && (healthCheckModel.hasError() || healthCheckModel.hasException())) {
 			unhealthyHealthCheckModelList.add(healthCheckModel);
 		}
@@ -259,7 +271,7 @@ public class HealthCheckService {
 	private AppConfigDTO getAppConfig(String appCode) throws Exception {
 		AppConfigDTO appConfig = appsConfigMap.get(appCode);
 		if(appConfig==null) {
-			appConfig = appsConfigMap.get(reverseAppCodeMap.get(appCode));
+			appConfig = appsConfigMap.get(reverseNodeCodeMap.get(appCode));
 		}
 		if(appConfig==null) {
 			throw new Exception("App code " + appCode + " not found!!");
@@ -274,7 +286,15 @@ public class HealthCheckService {
 		
 		// unhealthyHealthCheckModelList = new ArrayList<>();
 		for (String appCode : mainAppList) {
-			if (BLANK_BOX_PLACEHOLDER.equalsIgnoreCase(appCode)) {
+			boolean skipAppCodeCheck = false;
+			AppConfigDTO appConfig = getAppConfig(appCode);
+			if(appConfig!=null) {
+				StatusDTO nodeStatusDTO = appConfig.getConsolidatedNodeCodeStatusMap().get(appCode);
+				if(!appConfig.isActive() || (nodeStatusDTO!=null && !nodeStatusDTO.isActive())) {
+					skipAppCodeCheck= true;
+				}
+			}
+			if (BLANK_BOX_PLACEHOLDER.equalsIgnoreCase(appCode) || skipAppCodeCheck) {
 				continue;
 			}
 		/*	AppConfigDTO appConfig = appsConfigMap.get(appCode);
@@ -316,29 +336,33 @@ public class HealthCheckService {
 		}
 	}
 	
-	private void monitorConsolidatedAppCodes(AppConfigDTO appConfig) {
-		LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap = appConfig.getConsolidatedAppCodeStatusMap();
-		if(consolidatedAppCodeStatusMap!=null && !consolidatedAppCodeStatusMap.isEmpty()) {
-			for(String appUriCode: appConfig.getConsolidatedAppCodes()) {
-				StatusDTO statusDTO = consolidatedAppCodeStatusMap.get(appUriCode);
-				HealthCheckModel healthCheckModel = checkAppHealthStatus(appUriCode, statusDTO.getAppCodeUri());
+	private void monitorConsolidatedNodeCodes(AppConfigDTO appConfig) {
+		LinkedHashMap<String, StatusDTO> consolidatedNodeCodeStatusMap = appConfig.getConsolidatedNodeCodeStatusMap();
+		if(consolidatedNodeCodeStatusMap!=null && !consolidatedNodeCodeStatusMap.isEmpty()) {
+			for(String nodeCode: appConfig.getConsolidatedNodeCodes()) {
+				StatusDTO statusDTO = consolidatedNodeCodeStatusMap.get(nodeCode);
+				HealthCheckModel healthCheckModel = checkAppHealthStatus(nodeCode, statusDTO.getNodeCodeUri());
 				updateAppCodeStatus(appConfig, healthCheckModel, statusDTO);
 			}
 		}
 	}
 	
 	private void updateAppCodeStatus(AppConfigDTO appConfig, HealthCheckModel healthCheckModel, StatusDTO statusDTO) {
+		if(!appConfig.isActive() || !statusDTO.isActive()) {
+			logger.info("Ignoring the update for appCode...{} ", statusDTO.getAppCode());
+			return;
+		}
 		statusDTO.setStatusCode(healthCheckModel.getStatusCode());
 		statusDTO.setStatus(healthCheckModel.getStatus());
 		errorDescAppCodeMap.put(healthCheckModel.getAppCode(), healthCheckModel.getErrDescription());
-		if(appConfig.getDefaultAppCode().equalsIgnoreCase(healthCheckModel.getAppCode())) {
+		if(appConfig.getDefaultNodeCode().equalsIgnoreCase(healthCheckModel.getAppCode())) {
 			statusDTO.setError(healthCheckModel.getErrSummary());
 			appConfig.setErrSummary(healthCheckModel.getErrSummary());
 			appConfig.setStatus(healthCheckModel.getStatus());
 			appConfig.setStatusCode(healthCheckModel.getStatusCode());
 			if(!(healthCheckModel.hasError() || healthCheckModel.hasException()) 
-	//				&& !"N/A".equalsIgnoreCase(healthCheckModel.getErrSummary())
-					&& "OK".equalsIgnoreCase(healthCheckModel.getErrSummary())){
+					&& ("N/A".equalsIgnoreCase(healthCheckModel.getErrSummary()) ||
+							"OK".equalsIgnoreCase(healthCheckModel.getErrSummary()))){
 				statusDTO.setWarningOn("N");
 			}else {
 				appConfig.setWarningOn("Y");
@@ -361,13 +385,13 @@ public class HealthCheckService {
 		AppConfigDTO appConfig = appsConfigMap.get(appCode);
 		if(appConfig!=null) {
 			StatusDTO statusDTO = mainAppCodeStatusMap.get(appCode);
-			if(statusDTO==null) {
-				statusDTO = new StatusDTO();
-			}
-			statusDTO.setStatusCode(appConfig.getStatusCode());
-			statusDTO.setStatus(appConfig.getStatus());
-			statusDTO.setWarningOn(appConfig.getWarningOn());
-			statusDTO.setError(appConfig.getErrSummary());
+//			if(statusDTO==null) {
+//				statusDTO = new StatusDTO();
+//			}
+//			statusDTO.setStatusCode(appConfig.getStatusCode());
+//			statusDTO.setStatus(appConfig.getStatus());
+//			statusDTO.setWarningOn(appConfig.getWarningOn());
+//			statusDTO.setError(appConfig.getErrSummary());
 			mainAppCodeStatusMap.put(appCode, statusDTO);
 		}
 	}
@@ -381,9 +405,9 @@ public class HealthCheckService {
 	}
 	
 //	private LinkedHashMap<String, StatusDTO> updateAppCodeStatusCollection(AppConfigDTO appConfig){
-//		LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap= appConfig.getConsolidatedAppCodeStatusMap();
-//		if(consolidatedAppCodeStatusMap!=null && appConfig.getConsolidatedAppCodes()!=null && !appConfig.getConsolidatedAppCodes().isEmpty()) {
-//			for(String appCodeUri: appConfig.getConsolidatedAppCodes()) {
+//		LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap= appConfig.getConsolidatedNodeCodeStatusMap();
+//		if(consolidatedAppCodeStatusMap!=null && appConfig.getConsolidatedNodeCodes()!=null && !appConfig.getConsolidatedNodeCodes().isEmpty()) {
+//			for(String appCodeUri: appConfig.getConsolidatedNodeCodes()) {
 //				if(appCodeUri!=null) {
 //					StatusDTO statusDTO = consolidatedAppCodeStatusMap.get(appCodeUri);
 //					statusDTO.setAppCodeUri(getAppCodeUri(appCodeUri));
@@ -398,45 +422,45 @@ public class HealthCheckService {
 		// 1. obtain the main appCode list
 		for(String appCode: mainAppList) {
 			AppConfigDTO appConfig = new AppConfigDTO(appCode);
-			List<String> vipAppCodes = new ArrayList<>();
-			List<String> haproxyAppCodes= new ArrayList<>();
-			List<String> directAppCodes= new ArrayList<>();
-			Set<String> consolidatedAppCodes= new HashSet<>();
+			List<String> vipNodeCodes = new ArrayList<>();
+			List<String> haproxyNodeCodes= new ArrayList<>();
+			List<String> directNodeCodes= new ArrayList<>();
+			Set<String> consolidatedNodeCodes= new HashSet<>();
 //			LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap= new LinkedHashMap<>();
-//			appConfig.setConsolidatedAppCodeStatusMap(consolidatedAppCodeStatusMap);
+//			appConfig.setConsolidatedNodeCodeStatusMap(consolidatedAppCodeStatusMap);
 			String strDisplayName= environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_DISPLAY_NAME_SUFFIX, appCode);
 			appConfig.setDisplayName(strDisplayName);
 			// read the default-uri properties file for app configs.
 			String strDefaultUriCode = environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_DEFAULT_URI_SUFFIX);
-			appConfig.setDefaultAppCode(strDefaultUriCode);
+			appConfig.setDefaultNodeCode(strDefaultUriCode);
 //			consolidatedAppCodes.add(strDefaultUriCode);
 			
 			// read the properties file for app configs.
 			String strHasVIPUrl = environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_HAS_VIP_SUFFIX, "false");
 			if("true".equalsIgnoreCase(strHasVIPUrl)) {
 				// read the vip config properties file for app configs.
-				parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_VIP_CODES_SUFFIX), vipAppCodes);
-				appConfig.setVipAppCodes(vipAppCodes);
-//				appConfig.setVipAppCodesStatusMap(buildAppCodesStatusMap(vipAppCodes));
-				consolidatedAppCodes.addAll(vipAppCodes);
+				parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_VIP_CODES_SUFFIX), vipNodeCodes);
+				appConfig.setVipNodeCodes(vipNodeCodes);
+//				appConfig.setVipNodeCodesStatusMap(buildAppCodesStatusMap(vipAppCodes));
+				consolidatedNodeCodes.addAll(vipNodeCodes);
 			}
 						
 			String strHasHAPUrl = environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_HAS_HAP_SUFFIX, "false");
 			if("true".equalsIgnoreCase(strHasHAPUrl)) {
 				// read the has-haproxy config properties file for app configs.
-				parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_HAP_CODES_SUFFIX), haproxyAppCodes);
-				appConfig.setHaproxyAppCodes(haproxyAppCodes);
-//				appConfig.setHaproxyAppCodesStatusMap(buildAppCodesStatusMap(haproxyAppCodes));
-				consolidatedAppCodes.addAll(haproxyAppCodes);
+				parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_HAP_CODES_SUFFIX), haproxyNodeCodes);
+				appConfig.setHaproxyNodeCodes(haproxyNodeCodes);
+//				appConfig.setHaproxyNodeCodesStatusMap(buildAppCodesStatusMap(haproxyAppCodes));
+				consolidatedNodeCodes.addAll(haproxyNodeCodes);
 			}
 			
 			// read the direct url codes properties file for app configs.
-			parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_DIRECT_CODES_SUFFIX), directAppCodes);
-			appConfig.setDirectAppCodes(directAppCodes);
-			consolidatedAppCodes.addAll(directAppCodes);
-//			appConfig.setDirectAppCodesStatusMap(buildAppCodesStatusMap(directAppCodes));
-			appConfig.setConsolidatedAppCodes(consolidatedAppCodes);
-			appConfig.setConsolidatedAppCodeStatusMap(buildAppCodesStatusMap(consolidatedAppCodes, strDefaultUriCode));
+			parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appCode+ MAIN_APPCODE_DIRECT_CODES_SUFFIX), directNodeCodes);
+			appConfig.setDirectNodeCodes(directNodeCodes);
+			consolidatedNodeCodes.addAll(directNodeCodes);
+//			appConfig.setDirectNodeCodesStatusMap(buildAppCodesStatusMap(directAppCodes));
+			appConfig.setConsolidatedNodeCodes(consolidatedNodeCodes);
+			appConfig.setConsolidatedNodeCodeStatusMap(buildNodeCodesStatusMap(consolidatedNodeCodes, appConfig));
 			appsConfigList.add(appCode);
 			appsConfigMap.put(appCode, appConfig);
 			//Store the config
@@ -450,56 +474,80 @@ public class HealthCheckService {
 			return;
 		}
 		
-		if(appConfig.getVipAppCodes()!=null && !appConfig.getVipAppCodes().isEmpty()) {
-			for(String appVipCode: appConfig.getVipAppCodes()) {
-				reverseAppCodeMap.put(appVipCode, appConfig.getAppCode());
+		if(appConfig.getVipNodeCodes()!=null && !appConfig.getVipNodeCodes().isEmpty()) {
+			for(String appVipCode: appConfig.getVipNodeCodes()) {
+				reverseNodeCodeMap.put(appVipCode, appConfig.getAppCode());
 			}
 		}
 		
-		if(appConfig.getHaproxyAppCodes()!=null && !appConfig.getHaproxyAppCodes().isEmpty()) {
-			for(String appHapCode: appConfig.getHaproxyAppCodes()) {
-				reverseAppCodeMap.put(appHapCode, appConfig.getAppCode());
+		if(appConfig.getHaproxyNodeCodes()!=null && !appConfig.getHaproxyNodeCodes().isEmpty()) {
+			for(String appHapCode: appConfig.getHaproxyNodeCodes()) {
+				reverseNodeCodeMap.put(appHapCode, appConfig.getAppCode());
 			}
 		}
 		
-		if(appConfig.getDirectAppCodes()!=null && !appConfig.getDirectAppCodes().isEmpty()) {
-			for(String appDirectCode: appConfig.getDirectAppCodes()) {
-				reverseAppCodeMap.put(appDirectCode, appConfig.getAppCode());
+		if(appConfig.getDirectNodeCodes()!=null && !appConfig.getDirectNodeCodes().isEmpty()) {
+			for(String appDirectCode: appConfig.getDirectNodeCodes()) {
+				reverseNodeCodeMap.put(appDirectCode, appConfig.getAppCode());
 			}
 		}
 	}
 	
-	private LinkedHashMap<String, StatusDTO> buildAppCodesStatusMap(Set<String> appCodesList, String strDefaultUriCode){
-		LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap= new LinkedHashMap<>();
-		if(strDefaultUriCode!=null)
-			consolidatedAppCodeStatusMap.put(strDefaultUriCode, buildStatusDTO(strDefaultUriCode));
-		if(appCodesList!=null && !appCodesList.isEmpty()) {
-			for(String appUriCode: appCodesList) {
-				if(strDefaultUriCode!=null && appUriCode.equalsIgnoreCase(strDefaultUriCode)) {
+	private LinkedHashMap<String, StatusDTO> buildNodeCodesStatusMap(Set<String> appNodesList, AppConfigDTO appConfig){
+		LinkedHashMap<String, StatusDTO> consolidatedNodeCodeStatusMap= new LinkedHashMap<>();
+		if(appConfig!=null && appConfig.getDefaultNodeCode()!=null)
+			consolidatedNodeCodeStatusMap.put(appConfig.getDefaultNodeCode(), buildStatusDTO(appConfig.getDefaultNodeCode(), appConfig));
+		if(appNodesList!=null && !appNodesList.isEmpty()) {
+			for(String appNodeCode: appNodesList) {
+				if(appConfig.getDefaultNodeCode()!=null && appNodeCode.equalsIgnoreCase(appConfig.getDefaultNodeCode())) {
 					continue;
 				}
-				if(appUriCode!=null)
-				consolidatedAppCodeStatusMap.put(appUriCode, buildStatusDTO(appUriCode));
+				if(appNodeCode!=null)
+					consolidatedNodeCodeStatusMap.put(appNodeCode, buildStatusDTO(appNodeCode, appConfig));
 			}
 		}
 		
-		return consolidatedAppCodeStatusMap;
+		return consolidatedNodeCodeStatusMap;
 	}
 
-	private StatusDTO buildStatusDTO(String appUriCode) {
+	private StatusDTO buildStatusDTO(String appNodeCode, AppConfigDTO appConfig) {
 		StatusDTO statusDTO = new StatusDTO();
-		statusDTO.setAppCode(appUriCode);
-		statusDTO.setAppCodeUri(getAppCodeUri(appUriCode));
+		statusDTO.setAppCode(appConfig.getAppCode());
+		statusDTO.setActive(true);
+		statusDTO.setNodeCode(appNodeCode);
+		statusDTO.setNodeCodeUri(getNodeCodeUri(appNodeCode));
 		return statusDTO;
 	}
 	
-	private String getAppCodeUri(String uriAppCode) {
+	private String getNodeCodeUri(String uriAppCode) {
 		return environment.getProperty(APP_CODE_PROP_PREFIX + uriAppCode);
 	}
 	
 	private void notifyByEmail(List<HealthCheckModel> unhealthyHealthCheckModelList) {
 		if(!unhealthyHealthCheckModelList.isEmpty()) {
-			sendEmail(unhealthyHealthCheckModelList);
+			//build the valid AppCode list for sending email..
+			List<HealthCheckModel> emailNotificationModelList = new ArrayList<>();
+			
+			for(HealthCheckModel hcmodel: unhealthyHealthCheckModelList) {
+				AppConfigDTO appConfig = null;
+				try {
+					appConfig = getAppConfig(hcmodel.getAppCode());
+				}catch(Exception ex) {
+					ex.printStackTrace();
+					logger.error("notifyByEmail() exception while fetching appConfig...Exception: {}", ex.getMessage(), ex);
+				}
+				if(appConfig!=null) {
+					StatusDTO statusDTO = appConfig.getConsolidatedNodeCodeStatusMap().get(hcmodel.getAppCode());
+					if(appConfig.isActive() && statusDTO!=null && statusDTO.isActive()) {
+						emailNotificationModelList.add(hcmodel);
+					}
+				}
+			}
+			if(!emailNotificationModelList.isEmpty()) {
+				sendEmail(emailNotificationModelList);
+			}else {
+				logger.info("EMAIL_NO_MODEL_TO_NOTIFY :: No healthcheck notification available for emailing...");
+			}
 		}
 	}
 	

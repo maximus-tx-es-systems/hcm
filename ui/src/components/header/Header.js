@@ -60,7 +60,7 @@ const Header = ((props) => {
                 <div className='headerWrapperGridBox'>App Version: 0.0.3</div>
                 <div className='headerWrapperGridBox'> </div>
                 <div className='headerWrapperGridBox'>{formatDate(dateTime)}</div>
-                <div className='headerWrapperGridBox'><button className={notifyByEmail === '' ? "notifyBtn notifyBtn" : notifyByEmail === "true" ? "notifyBtn notifyBtntrue" : "notifyBtn notifyBtnfalse"}
+                <div className='headerWrapperGridBox'><button className={notifyByEmail === '' ? "notifyBtn notifyBtn" : notifyByEmail === "false" ? "notifyBtn notifyBtntrue" : "notifyBtn notifyBtnfalse"}
                     onClick={() => toggleEmailNotification()}>{notifyByEmail === "true" ? "Disable" : "Enable"} All Email Alerts</button></div>
                 <div className='headerWrapperGridBox'>
                     <button className="triggerBtn" onClick={() => triggerHealthCheck()}>Trigger All Health Checks</button></div>

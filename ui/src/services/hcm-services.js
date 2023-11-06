@@ -28,6 +28,11 @@ export const fetchAppCodeStatusDTO = ((appCode, callback) => {
     fetchData(config.baseApiUrl + '/api/v1/app/' + appCode + '/status', 'GET', callback, null);
 });
 
+export const toggleAppCodeActiveState = ((appCode, payload, callback) => {
+    fetchData(config.baseApiUrl + '/api/v1/app/' + appCode + '/toggle-app-code-state', 'PUT', callback, payload);
+});
+
+//
 const fetchData = ((url, methodType, callback, payload) => {
     if (payload === null) {
         fetch(url, { method: methodType })

@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 
 const Node = ((props)=>{
 
-    const [appCode, setAppCode] = useState(props.state.appCode);
+    const [nodeCode, setNodeCode] = useState(props.state.nodeCode);
+    const [appConfig, setAppConfig] = useState(props.state.appConfig);
     const [statusDTO, setStatusDTO] = useState(props.state.statusDTO);
-  
-    return (<Link className="nodeLinkStyle" to="status" state={{ appCode: appCode, statusDTO: statusDTO }} >
-    <div className={appCode === "BLANK" ? "bodyWrapperGridBox blankBox" : statusDTO.status === "OK" ?
-    statusDTO.warningOn === "Y" ? "bodyWrapperGridBox warnflash" : "bodyWrapperGridBox" : "bodyWrapperGridBox flash"}>{ appCode } </div></Link>);
+    const [active, setActive] = useState(props.state.statusDTO.active);
+    
+    return (<Link className="nodeLinkStyle" to="status"
+        state={{ appCode: statusDTO.appCode ,nodeCode: nodeCode, statusDTO: statusDTO, appConfig: appConfig }} >
+        <div className={nodeCode === "BLANK" ? "bodyWrapperGridBox blankBox" : active === false ?
+            "bodyWrapperGridBox deactivatedAppNode" : statusDTO.warningOn === "Y" ? "bodyWrapperGridBox warnflash" :
+                (statusDTO.status === "OK" || statusDTO.status=="N/A") ?  "bodyWrapperGridBox" :
+                    "bodyWrapperGridBox flash"}>{nodeCode} </div></Link>);
 });
 
 

@@ -120,7 +120,7 @@ public class HCMonitorResource {
 	
 	@PutMapping("app/{appCode}/toggle-email-notification")
 	public ResponseEntity<StatusDTO> toggleAppCodeEmailNotification(@PathVariable String appCode, @RequestBody KeyValueDTO statusDTO){
-		logger.info("inside POST toggleAppCodeEmailNotification ..appCode={} " , appCode);
+		logger.info("inside PUT toggleAppCodeEmailNotification ..appCode={} " , appCode);
 		try {
 			return ResponseEntity.ok(healthCheckService.updateEmailStatus(appCode, statusDTO));
 		}catch(Exception e) {
@@ -162,5 +162,16 @@ public class HCMonitorResource {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	
+	@PutMapping("app/{appCode}/toggle-app-code-state")
+	public ResponseEntity<StatusDTO> toggleAppCodeActiveState(@PathVariable String appCode, @RequestBody KeyValueDTO statusDTO){
+		logger.info("inside PUT toggleAppCodeActiveState ..appCode={} " , appCode);
+		try {
+			return ResponseEntity.ok(healthCheckService.updateActiveStatus(appCode, statusDTO));
+		}catch(Exception e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	
 }

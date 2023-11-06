@@ -1,5 +1,7 @@
 package com.maximus.hcm.resource;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maximus.hcm.dto.AppConfigDTO;
 import com.maximus.hcm.dto.CommonLookUpVO;
 import com.maximus.hcm.service.StaffService;
 
@@ -63,4 +66,16 @@ public class StaffResource {
 		return ResponseEntity.internalServerError().build();
 	}
 	
+	
+	@GetMapping("file-staff-data")
+	public ResponseEntity<List<AppConfigDTO>> getFileStaffData(){
+		try {
+		return ResponseEntity.ok(service.getFileStaffData());
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			logger.error("Exception: {}", ex.getMessage(), ex);
+		}
+		
+		return ResponseEntity.internalServerError().build();
+	}
 }

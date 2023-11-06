@@ -11,6 +11,9 @@
     text-decoration: none;
 }
 
+.deactivatedAppNode {
+    background-color: lightgrey!important;
+}
 
 .flash {
     animation-name: alertFlash;

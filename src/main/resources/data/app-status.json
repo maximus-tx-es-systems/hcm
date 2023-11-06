@@ -1,0 +1,887 @@
+[
+	{
+		"appCode": "MAXeQC",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "OK",
+		"warningOn": "Y",
+		"defaultAppCode": "MAXeQC_QCTVIP",
+		"displayName": "MAXeQC",
+		"lastCheckedOn": "2023-11-02T19:08:59.837+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": [
+			"MAXeQC_QCTVIP",
+			"MAXeQC_CCATVIP"
+		],
+		"haproxyAppCodes": [
+			"MAXeQC_HAP02",
+			"MAXeQC_HAP03",
+			"MAXeQC_HAP04",
+			"MAXeQC_HAP05"
+		],
+		"directAppCodes": [
+			"MAXeQC_P02",
+			"MAXeQC_P03",
+			"MAXeQC_P04",
+			"MAXeQC_P05"
+		],
+		"consolidatedAppCodes": [
+			"MAXeQC_P05",
+			"MAXeQC_HAP05",
+			"MAXeQC_P04",
+			"MAXeQC_CCATVIP",
+			"MAXeQC_QCTVIP",
+			"MAXeQC_HAP02",
+			"MAXeQC_HAP04",
+			"MAXeQC_P03",
+			"MAXeQC_HAP03",
+			"MAXeQC_P02"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"MAXeQC_QCTVIP": {
+				"appCode": "MAXeQC_QCTVIP",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": true
+			},
+			"MAXeQC_P05": {
+				"appCode": "MAXeQC_P05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:7777/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_HAP05": {
+				"appCode": "MAXeQC_HAP05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:8080/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_P04": {
+				"appCode": "MAXeQC_P04",
+				"appCodeUri": "http://lwtp004.hhscie.txaccess.net:7777/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_CCATVIP": {
+				"appCode": "MAXeQC_CCATVIP",
+				"appCodeUri": "http://prd-mxieccat-vip.hhscie.txaccess.net/MAXeQC",
+				"statusCode": "404",
+				"status": "NOT_FOUND",
+				"warningOn": null,
+				"error": "NOT_FOUND",
+				"notifyByEmail": false
+			},
+			"MAXeQC_HAP02": {
+				"appCode": "MAXeQC_HAP02",
+				"appCodeUri": "http://lwtp002.hhscie.txaccess.net:8080/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_HAP04": {
+				"appCode": "MAXeQC_HAP04",
+				"appCodeUri": "http://lwtp004.hhscie.txaccess.net:8080/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_P03": {
+				"appCode": "MAXeQC_P03",
+				"appCodeUri": "http://lwtp003.hhscie.txaccess.net:7777/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_HAP03": {
+				"appCode": "MAXeQC_HAP03",
+				"appCodeUri": "http://lwtp003.hhscie.txaccess.net:8080/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_P02": {
+				"appCode": "MAXeQC_P02",
+				"appCodeUri": "http://lwtp002.hhscie.txaccess.net:7777/MAXeQC",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "CCA",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "OK",
+		"warningOn": "N/A",
+		"defaultAppCode": "CCA_QCTVIP",
+		"displayName": "CCA",
+		"lastCheckedOn": "2023-11-02T19:08:59.879+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": [
+			"CCA_QCTVIP",
+			"CCA_CCATVIP"
+		],
+		"haproxyAppCodes": [
+			"CCA_HAP02",
+			"CCA_HAP03",
+			"CCA_HAP04",
+			"CCA_HAP05"
+		],
+		"directAppCodes": [
+			"CCA_P08",
+			"CCA_P09"
+		],
+		"consolidatedAppCodes": [
+			"CCA_HAP05",
+			"CCA_HAP03",
+			"CCA_HAP04",
+			"CCA_HAP02",
+			"CCA_QCTVIP",
+			"CCA_CCATVIP",
+			"CCA_P08",
+			"CCA_P09"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"CCA_QCTVIP": {
+				"appCode": "CCA_QCTVIP",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			},
+			"CCA_HAP05": {
+				"appCode": "CCA_HAP05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:8080/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"CCA_HAP03": {
+				"appCode": "CCA_HAP03",
+				"appCodeUri": "http://lwtp003.hhscie.txaccess.net:8080/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"CCA_HAP04": {
+				"appCode": "CCA_HAP04",
+				"appCodeUri": "http://lwtp004.hhscie.txaccess.net:8080/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"CCA_HAP02": {
+				"appCode": "CCA_HAP02",
+				"appCodeUri": "http://lwtp002.hhscie.txaccess.net:8080/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"CCA_CCATVIP": {
+				"appCode": "CCA_CCATVIP",
+				"appCodeUri": "http://prd-mxieccat-vip.hhscie.txaccess.net/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"CCA_P08": {
+				"appCode": "CCA_P08",
+				"appCodeUri": "http://lwtp008.hhscie.txaccess.net:9090/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"CCA_P09": {
+				"appCode": "CCA_P09",
+				"appCodeUri": "http://lwtp009.hhscie.txaccess.net:9090/cca-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "OAT",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "OK",
+		"warningOn": "Y",
+		"defaultAppCode": "OAT_QCTVIP",
+		"displayName": "OAT",
+		"lastCheckedOn": "2023-11-02T19:08:59.950+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": [
+			"OAT_QCTVIP",
+			"OAT_CCATVIP"
+		],
+		"haproxyAppCodes": [
+			"OAT_HAP02",
+			"OAT_HAP03",
+			"OAT_HAP04",
+			"OAT_HAP05"
+		],
+		"directAppCodes": [
+			"OAT_P05"
+		],
+		"consolidatedAppCodes": [
+			"OAT_CCATVIP",
+			"OAT_QCTVIP",
+			"OAT_HAP05",
+			"OAT_HAP04",
+			"OAT_HAP03",
+			"OAT_HAP02",
+			"OAT_P05"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"OAT_QCTVIP": {
+				"appCode": "OAT_QCTVIP",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/oat-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			},
+			"OAT_CCATVIP": {
+				"appCode": "OAT_CCATVIP",
+				"appCodeUri": "http://prd-mxieccat-vip.hhscie.txaccess.net/oat-ui",
+				"statusCode": "404",
+				"status": "NOT_FOUND",
+				"warningOn": null,
+				"error": "NOT_FOUND",
+				"notifyByEmail": false
+			},
+			"OAT_HAP05": {
+				"appCode": "OAT_HAP05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:8080/oat-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"OAT_HAP04": {
+				"appCode": "OAT_HAP04",
+				"appCodeUri": "http://lwtp004.hhscie.txaccess.net:8080/oat-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"OAT_HAP03": {
+				"appCode": "OAT_HAP03",
+				"appCodeUri": "http://lwtp003.hhscie.txaccess.net:8080/oat-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"OAT_HAP02": {
+				"appCode": "OAT_HAP02",
+				"appCodeUri": "http://lwtp002.hhscie.txaccess.net:8080/oat-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"OAT_P05": {
+				"appCode": "OAT_P05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:9090/oat-ui",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "DBrief",
+		"status": "EXCEPTION",
+		"statusCode": null,
+		"errSummary": "java.net.ConnectException: Connection timed out",
+		"warningOn": "N/A",
+		"defaultAppCode": "DBrief-W04",
+		"displayName": "DBrief",
+		"lastCheckedOn": "2023-11-02T19:11:07.301+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"DBrief-W04"
+		],
+		"consolidatedAppCodes": [
+			"DBrief-W04"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"DBrief-W04": {
+				"appCode": "DBrief-W04",
+				"appCodeUri": "https://hhsc4sviedaww04.txhhsc.txnet.state.tx.us:8443/debrief-ui/",
+				"statusCode": null,
+				"status": "EXCEPTION",
+				"warningOn": null,
+				"error": "java.net.ConnectException: Connection timed out",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "EID",
+		"status": "EXCEPTION",
+		"statusCode": null,
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "EID_W04",
+		"displayName": "EID",
+		"lastCheckedOn": "2023-11-02T18:58:23.397+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"EID_W04"
+		],
+		"consolidatedAppCodes": [
+			"EID_W04"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"EID_W04": {
+				"appCode": "EID_W04",
+				"appCodeUri": "https://hhsc4sviedaww04.txhhsc.txnet.state.tx.us:8443/ept-ui/",
+				"statusCode": null,
+				"status": "EXCEPTION",
+				"warningOn": null,
+				"error": "java.net.ConnectException: Connection timed out",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "EPT",
+		"status": "EXCEPTION",
+		"statusCode": null,
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "EPT-W04",
+		"displayName": "EPT",
+		"lastCheckedOn": "2023-11-02T19:02:37.864+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"EPT-W04"
+		],
+		"consolidatedAppCodes": [
+			"EPT-W04"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"EPT-W04": {
+				"appCode": "EPT-W04",
+				"appCodeUri": "https://hhsc4sviedaww04.txhhsc.txnet.state.tx.us:8443/ept-ui/",
+				"statusCode": null,
+				"status": "EXCEPTION",
+				"warningOn": null,
+				"error": "java.net.ConnectException: Connection timed out",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "SID",
+		"status": "EXCEPTION",
+		"statusCode": null,
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "SID-W04",
+		"displayName": "SID",
+		"lastCheckedOn": "2023-11-02T19:06:52.325+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"SID-W04"
+		],
+		"consolidatedAppCodes": [
+			"SID-W04"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"SID-W04": {
+				"appCode": "SID-W04",
+				"appCodeUri": "https://hhsc4sviedaww04.txhhsc.txnet.state.tx.us:8443/sid-ui/",
+				"statusCode": null,
+				"status": "EXCEPTION",
+				"warningOn": null,
+				"error": "java.net.ConnectException: Connection timed out",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "SCH-RPT",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "SCH-RPT-05",
+		"displayName": "SCH-RPT",
+		"lastCheckedOn": "2023-11-02T19:08:59.578+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"SCH-RPT-05"
+		],
+		"consolidatedAppCodes": [
+			"SCH-RPT-05"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"SCH-RPT-05": {
+				"appCode": "SCH-RPT-05",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/ScheduledReports/api/v1/schedule-reports/ping",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "MAXeQC_RPT",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "MAXeQC_RPT_QCTVIP",
+		"displayName": "MAXeQC-RPT",
+		"lastCheckedOn": "2023-11-02T19:08:59.603+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": [
+			"MAXeQC_RPT_QCTVIP"
+		],
+		"haproxyAppCodes": [
+			"MAXeQC_RPT_HAP02",
+			"MAXeQC_RPT_HAP03",
+			"MAXeQC_RPT_HAP04",
+			"MAXeQC_RPT_HAP05"
+		],
+		"directAppCodes": [
+			"MAXeQC_RPT_P05"
+		],
+		"consolidatedAppCodes": [
+			"MAXeQC_RPT_HAP02",
+			"MAXeQC_RPT_HAP03",
+			"MAXeQC_RPT_P05",
+			"MAXeQC_RPT_HAP04",
+			"MAXeQC_RPT_QCTVIP",
+			"MAXeQC_RPT_HAP05"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"MAXeQC_RPT_QCTVIP": {
+				"appCode": "MAXeQC_RPT_QCTVIP",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/MAXeQC_RPT",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			},
+			"MAXeQC_RPT_HAP02": {
+				"appCode": "MAXeQC_RPT_HAP02",
+				"appCodeUri": "http://lwtp002.hhscie.txaccess.net:8080/MAXeQC_RPT",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_RPT_HAP03": {
+				"appCode": "MAXeQC_RPT_HAP03",
+				"appCodeUri": "http://lwtp003.hhscie.txaccess.net:8080/MAXeQC_RPT",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_RPT_P05": {
+				"appCode": "MAXeQC_RPT_P05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:7777/MAXeQC_RPT",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_RPT_HAP04": {
+				"appCode": "MAXeQC_RPT_HAP04",
+				"appCodeUri": "http://lwtp004.hhscie.txaccess.net:8080/MAXeQC_RPT",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"MAXeQC_RPT_HAP05": {
+				"appCode": "MAXeQC_RPT_HAP05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:8080/MAXeQC_RPT",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "FSS",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "FSS_QCTVIP",
+		"displayName": "FSS",
+		"lastCheckedOn": "2023-11-02T19:08:59.673+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": [
+			"FSS_QCTVIP",
+			"FSS_CCATVIP"
+		],
+		"haproxyAppCodes": [
+			"FSS_HAP02",
+			"FSS_HAP03",
+			"FSS_HAP04",
+			"FSS_HAP05"
+		],
+		"directAppCodes": [
+			"FSS_P05"
+		],
+		"consolidatedAppCodes": [
+			"FSS_QCTVIP",
+			"FSS_CCATVIP",
+			"FSS_P05",
+			"FSS_HAP04",
+			"FSS_HAP05",
+			"FSS_HAP02",
+			"FSS_HAP03"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"FSS_QCTVIP": {
+				"appCode": "FSS_QCTVIP",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/FSS",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			},
+			"FSS_CCATVIP": {
+				"appCode": "FSS_CCATVIP",
+				"appCodeUri": "http://prd-mxieccat-vip.hhscie.txaccess.net/FSS",
+				"statusCode": "404",
+				"status": "NOT_FOUND",
+				"warningOn": null,
+				"error": "NOT_FOUND",
+				"notifyByEmail": false
+			},
+			"FSS_P05": {
+				"appCode": "FSS_P05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:7777/FSS",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"FSS_HAP04": {
+				"appCode": "FSS_HAP04",
+				"appCodeUri": "http://lwtp004.hhscie.txaccess.net:8080/FSS",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"FSS_HAP05": {
+				"appCode": "FSS_HAP05",
+				"appCodeUri": "http://lwtp005.hhscie.txaccess.net:8080/FSS",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"FSS_HAP02": {
+				"appCode": "FSS_HAP02",
+				"appCodeUri": "http://lwtp002.hhscie.txaccess.net:8080/FSS",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			},
+			"FSS_HAP03": {
+				"appCode": "FSS_HAP03",
+				"appCodeUri": "http://lwtp003.hhscie.txaccess.net:8080/FSS",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "No Error",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "BLANK",
+		"status": null,
+		"statusCode": null,
+		"errSummary": null,
+		"warningOn": null,
+		"defaultAppCode": null,
+		"displayName": "BLANK",
+		"lastCheckedOn": null,
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [],
+		"consolidatedAppCodes": [],
+		"consolidatedAppCodeStatusMap": {}
+	},
+	{
+		"appCode": "BLANK",
+		"status": null,
+		"statusCode": null,
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": null,
+		"displayName": "BLANK",
+		"lastCheckedOn": null,
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [],
+		"consolidatedAppCodes": [],
+		"consolidatedAppCodeStatusMap": {}
+	},
+	{
+		"appCode": "Vault-L02",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "Vault-L02",
+		"displayName": "Linux-Vault",
+		"lastCheckedOn": "2023-11-02T19:08:59.708+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"Vault-L02"
+		],
+		"consolidatedAppCodes": [
+			"Vault-L02"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"Vault-L02": {
+				"appCode": "Vault-L02",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/v1/sys/health",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "Vault-W04",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "Vault-W04",
+		"displayName": "Windows-Vault",
+		"lastCheckedOn": "2023-11-02T19:08:59.747+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"Vault-W04"
+		],
+		"consolidatedAppCodes": [
+			"Vault-W04"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"Vault-W04": {
+				"appCode": "Vault-W04",
+				"appCodeUri": "http://hhsc4sviedaww04.txhhsc.txnet.state.tx.us:8200/v1/sys/health",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "HAP02",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "HAP02",
+		"displayName": "HAProxy-P002",
+		"lastCheckedOn": "2023-11-02T19:08:59.777+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"HAP02"
+		],
+		"consolidatedAppCodes": [
+			"HAP02"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"HAP02": {
+				"appCode": "HAP02",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/v1/sys/health",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "HAP03",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "HAP03",
+		"displayName": "HAProxy-P003",
+		"lastCheckedOn": "2023-11-02T19:08:59.791+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"HAP03"
+		],
+		"consolidatedAppCodes": [
+			"HAP03"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"HAP03": {
+				"appCode": "HAP03",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/v1/sys/health",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "HAP04",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "HAP04",
+		"displayName": "HAProxy-P004",
+		"lastCheckedOn": "2023-11-02T19:08:59.807+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"HAP04"
+		],
+		"consolidatedAppCodes": [
+			"HAP04"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"HAP04": {
+				"appCode": "HAP04",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/v1/sys/health",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	},
+	{
+		"appCode": "HAP05",
+		"status": "OK",
+		"statusCode": "200",
+		"errSummary": "N/A",
+		"warningOn": "N/A",
+		"defaultAppCode": "HAP05",
+		"displayName": "HAProxy-P005",
+		"lastCheckedOn": "2023-11-02T19:08:59.815+00:00",
+		"notifyByEmail": false,
+		"vipAppCodes": null,
+		"haproxyAppCodes": null,
+		"directAppCodes": [
+			"HAP05"
+		],
+		"consolidatedAppCodes": [
+			"HAP05"
+		],
+		"consolidatedAppCodeStatusMap": {
+			"HAP05": {
+				"appCode": "HAP05",
+				"appCodeUri": "https://prd-mxieqct-vip.hhscie.txaccess.net/v1/sys/health",
+				"statusCode": "200",
+				"status": "OK",
+				"warningOn": "N",
+				"error": "OK",
+				"notifyByEmail": false
+			}
+		}
+	}
+]

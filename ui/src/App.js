@@ -6,7 +6,7 @@ import Header  from './components/header/Header';
 import AppBoard from './components/app/board/AppBoard';
 import NodeStatus from './components/node/status/NodeStatus';
 import AppDashboard from './components/app/dashboard/AppDashboard';
-import { BrowserRouter , Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter , Routes, Route } from 'react-router-dom';
 import { fetchStatusData, fetchEmailStatus } from './services/hcm-services'
 
 function App() {
@@ -16,14 +16,16 @@ function App() {
 
     window.onload = () => {
         getStatusData();
+        getEmailStatus();
         setInterval(() => {
              getStatusData();
              getEmailStatus();
         }, config.frequency);
+        
      };
 
     const getStatusData = () => {
-        fetchStatusData((respData)=>{
+        fetchStatusData((respData) => {
             setData(respData)
         });
     };
@@ -41,7 +43,7 @@ function App() {
     <BrowserRouter basename= {config.basename}>
         <Routes>
             <Route index element={ <AppDashboard state={{"appData": data, "emailStatus": notifyByEmail}}/> } />
-            <Route path="/" element={ <Login /> } />
+            <Route path="/" element={<AppDashboard state={{ "appData": data, "emailStatus": notifyByEmail }} /> } />
             <Route path="/app/:appCode" element={ <AppBoard state={{"appData": data, "emailStatus": notifyByEmail}}/> } />
             <Route path="/app/:appCode/status" element={ <NodeStatus state={{"appData": data, "emailStatus": notifyByEmail}} /> } />
             <Route path="/dashboard" element = { <AppDashboard state={{"appData": data, "emailStatus": notifyByEmail}}/>}/>
@@ -49,16 +51,8 @@ function App() {
 
         </Routes>
     </BrowserRouter>
-    <Outlet />
     </div>
   );
 }
 
 export default App;
-
-/*
-
-    <Route path="/" element={ <AppDashboard state={{"appData": data, "emailStatus": notifyByEmail}}/> } />
-
-
-    */

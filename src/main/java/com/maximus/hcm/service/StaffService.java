@@ -1,25 +1,47 @@
 package com.maximus.hcm.service;
 
-import java.io.File;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
+import org.springframework.util.FileCopyUtils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.maximus.hcm.dto.AppConfigDTO;
 import com.maximus.hcm.dto.CommonLookUpVO;
 
 @Service
 public class StaffService {
 	
+	public static Logger logger = LoggerFactory.getLogger(StaffService.class);
+	
 	private CommonLookUpVO commonLookupVO;
+	
+	@Value("classpath:data/staff-data.json")
+	Resource resourceFile;
+	
+	@Value("classpath:data/app-status.json")
+	Resource appStatusResourceFile;
+	
+	@Autowired
+	ResourceLoader resourceLoader;
+	
+	private static List<AppConfigDTO> appConfigList;
 	
 	public Resource getStaffData() throws Exception {
 		
-		String fileURI = "C:\\Users\\512800\\eclipse-workspace\\tx-health-check-monitor\\src\\main\\resources\\staff-data.json";
+		String fileURI = "classpath:data/staff-data.json";
 		
 		Path path = Paths.get(fileURI);
 		Resource res = new UrlResource(path.toUri());
@@ -36,9 +58,8 @@ public class StaffService {
 	
 	public CommonLookUpVO loadDataFromFile() throws Exception{
 		ObjectMapper mapper = new ObjectMapper();
-		String fileURI = "C:\\Users\\512800\\eclipse-workspace\\tx-health-check-monitor\\src\\main\\resources\\staff-data.json";
-		Path file = ResourceUtils.getFile(fileURI).toPath();
-	    commonLookupVO = mapper.readValue(file.toFile(), CommonLookUpVO.class);
+		Resource resource = new ClassPathResource("staff-data.json");
+	    commonLookupVO = mapper.readValue(resourceFile.getInputStream(), CommonLookUpVO.class);
 
 		return commonLookupVO;
 	}
@@ -46,4 +67,17 @@ public class StaffService {
 	public CommonLookUpVO getStaffLookupVOData() {
 		return commonLookupVO;
 	}
+	
+	public List<AppConfigDTO> getFileStaffData() throws Exception{
+		if(appConfigList!=null && !appConfigList.isEmpty()) {
+			return appConfigList;
+		}
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Resource resource = new ClassPathResource("app-status.json");
+		List<AppConfigDTO> list = mapper.readValue(resource.getInputStream(), new TypeReference<List<AppConfigDTO>>(){});
+		
+		return list;
+	}
+	
 }

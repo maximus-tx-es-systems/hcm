@@ -9,69 +9,57 @@ public class AppConfigDTO {
 	
 	private String appCode;
 	private String status;
+	private boolean active;
 	private String statusCode;
 	private String errSummary;
 	private String warningOn;
-	private String defaultAppCode;
+	private String defaultNodeCode;
 	private String displayName;
 	private Date lastCheckedOn;
 	private boolean notifyByEmail;
-	private List<String> vipAppCodes;
-	private List<String> haproxyAppCodes;
-	private List<String> directAppCodes;
-	private Set<String> consolidatedAppCodes;
-	private LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap;
+	private List<String> vipNodeCodes;
+	private List<String> haproxyNodeCodes;
+	private List<String> directNodeCodes;
+	private Set<String> consolidatedNodeCodes;
+	private LinkedHashMap<String, StatusDTO> consolidatedNodeCodeStatusMap;
 	
 	public AppConfigDTO() {}
 	
 	public AppConfigDTO(String appCode) {
 		this.appCode = appCode;
+		this.active = true;
 	}
-	
+
 	public String getAppCode() {
 		return appCode;
 	}
+
 	public void setAppCode(String appCode) {
 		this.appCode = appCode;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public String getDefaultAppCode() {
-		return defaultAppCode;
+
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setDefaultAppCode(String defaultAppCode) {
-		this.defaultAppCode = defaultAppCode;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
-	public List<String> getVipAppCodes() {
-		return vipAppCodes;
+	public String getStatusCode() {
+		return statusCode;
 	}
-	public void setVipAppCodes(List<String> vipAppCodes) {
-		this.vipAppCodes = vipAppCodes;
-	}
-	public List<String> getHaproxyAppCodes() {
-		return haproxyAppCodes;
-	}
-	public void setHaproxyAppCodes(List<String> haproxyAppCodes) {
-		this.haproxyAppCodes = haproxyAppCodes;
-	}
-	public List<String> getDirectAppCodes() {
-		return directAppCodes;
-	}
-	public void setDirectAppCodes(List<String> directAppCodes) {
-		this.directAppCodes = directAppCodes;
-	}
-	public Set<String> getConsolidatedAppCodes() {
-		return consolidatedAppCodes;
-	}
-	public void setConsolidatedAppCodes(Set<String> consolidatedAppCodes) {
-		this.consolidatedAppCodes = consolidatedAppCodes;
+
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
 	}
 
 	public String getErrSummary() {
@@ -90,28 +78,12 @@ public class AppConfigDTO {
 		this.warningOn = warningOn;
 	}
 
-	public String getStatusCode() {
-		return statusCode;
+	public String getDefaultNodeCode() {
+		return defaultNodeCode;
 	}
 
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
-	}
-
-	public LinkedHashMap<String, StatusDTO> getConsolidatedAppCodeStatusMap() {
-		return consolidatedAppCodeStatusMap;
-	}
-
-	public void setConsolidatedAppCodeStatusMap(LinkedHashMap<String, StatusDTO> consolidatedAppCodeStatusMap) {
-		this.consolidatedAppCodeStatusMap = consolidatedAppCodeStatusMap;
-	}
-
-	public Date getLastCheckedOn() {
-		return lastCheckedOn;
-	}
-
-	public void setLastCheckedOn(Date lastCheckedOn) {
-		this.lastCheckedOn = lastCheckedOn;
+	public void setDefaultNodeCode(String defaultNodeCode) {
+		this.defaultNodeCode = defaultNodeCode;
 	}
 
 	public String getDisplayName() {
@@ -122,6 +94,14 @@ public class AppConfigDTO {
 		this.displayName = displayName;
 	}
 
+	public Date getLastCheckedOn() {
+		return lastCheckedOn;
+	}
+
+	public void setLastCheckedOn(Date lastCheckedOn) {
+		this.lastCheckedOn = lastCheckedOn;
+	}
+
 	public boolean isNotifyByEmail() {
 		return notifyByEmail;
 	}
@@ -129,5 +109,46 @@ public class AppConfigDTO {
 	public void setNotifyByEmail(boolean notifyByEmail) {
 		this.notifyByEmail = notifyByEmail;
 	}
+
+	public List<String> getVipNodeCodes() {
+		return vipNodeCodes;
+	}
+
+	public void setVipNodeCodes(List<String> vipNodeCodes) {
+		this.vipNodeCodes = vipNodeCodes;
+	}
+
+	public List<String> getHaproxyNodeCodes() {
+		return haproxyNodeCodes;
+	}
+
+	public void setHaproxyNodeCodes(List<String> haproxyNodeCodes) {
+		this.haproxyNodeCodes = haproxyNodeCodes;
+	}
+
+	public List<String> getDirectNodeCodes() {
+		return directNodeCodes;
+	}
+
+	public void setDirectNodeCodes(List<String> directNodeCodes) {
+		this.directNodeCodes = directNodeCodes;
+	}
+
+	public Set<String> getConsolidatedNodeCodes() {
+		return consolidatedNodeCodes;
+	}
+
+	public void setConsolidatedNodeCodes(Set<String> consolidatedNodeCodes) {
+		this.consolidatedNodeCodes = consolidatedNodeCodes;
+	}
+
+	public LinkedHashMap<String, StatusDTO> getConsolidatedNodeCodeStatusMap() {
+		return consolidatedNodeCodeStatusMap;
+	}
+
+	public void setConsolidatedNodeCodeStatusMap(LinkedHashMap<String, StatusDTO> consolidatedNodeCodeStatusMap) {
+		this.consolidatedNodeCodeStatusMap = consolidatedNodeCodeStatusMap;
+	}
+	
 	
 }
