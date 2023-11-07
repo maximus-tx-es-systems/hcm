@@ -30,6 +30,8 @@ public class HealthCheckModel implements Serializable {
 	private boolean hasNotified;
 	private String errSummary;
 	
+	private String responseData;
+	
 	public String getAppCode() {
 		return appCode;
 	}
@@ -108,4 +110,11 @@ public class HealthCheckModel implements Serializable {
 	public void setStatusCode(String statusCode) {
 		this.statusCode = statusCode;
 	}
+	public String getResponseData() {
+		return responseData;
+	}
+	public void setResponseData(String responseData) {
+		this.responseData = responseData;
+	}
+	
 }

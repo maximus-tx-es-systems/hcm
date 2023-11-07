@@ -48,6 +48,7 @@ public class HealthCheckService {
 	private static final String MAIN_APPCODE_HAP_CODES_SUFFIX = ".uri-code-list.haproxy";
 	private static final String MAIN_APPCODE_DEFAULT_URI_SUFFIX = ".default-uri";
 	private static final String MAIN_APPCODE_DISPLAY_NAME_SUFFIX = ".display-name";
+	private static final String MAIN_APPCODE_DISABLED_URI_LIST  = ".disabled-list";
 	private static final String MAIN_APPCODE_DIRECT_CODES_SUFFIX = ".uri-code-list.direct";
 	private static final String DEFAULT_APP_HEALTH_CHECK_LIST_PROP = "apps.health.check.list.default";
 	private static final String DEFAULT_APP_HEALTH_CHECK_MAIN_LIST = "MAXeQC,CCA,OAT,FSS";
@@ -364,6 +365,7 @@ public class HealthCheckService {
 					&& ("N/A".equalsIgnoreCase(healthCheckModel.getErrSummary()) ||
 							"OK".equalsIgnoreCase(healthCheckModel.getErrSummary()))){
 				statusDTO.setWarningOn("N");
+				statusDTO.setError(healthCheckModel.getResponseData());
 			}else {
 				appConfig.setWarningOn("Y");
 				unhealthyHealthCheckModelList.add(healthCheckModel);
@@ -374,8 +376,8 @@ public class HealthCheckService {
 				appConfig.setWarningOn("Y");
 				unhealthyHealthCheckModelList.add(healthCheckModel);
 			}else if("OK".equalsIgnoreCase(healthCheckModel.getErrSummary())){
-				statusDTO.setError("No Error");
 				statusDTO.setWarningOn("N");
+				statusDTO.setError(healthCheckModel.getResponseData());
 			}
 		}
 	}
@@ -461,11 +463,27 @@ public class HealthCheckService {
 //			appConfig.setDirectNodeCodesStatusMap(buildAppCodesStatusMap(directAppCodes));
 			appConfig.setConsolidatedNodeCodes(consolidatedNodeCodes);
 			appConfig.setConsolidatedNodeCodeStatusMap(buildNodeCodesStatusMap(consolidatedNodeCodes, appConfig));
+			updateDisabledNodes(appConfig);
 			appsConfigList.add(appCode);
 			appsConfigMap.put(appCode, appConfig);
 			//Store the config
 			mainAppConfigList.add(appConfig);
 			updateReverseAppCodeMapping(appConfig);
+		}
+	}
+	
+	private void updateDisabledNodes(AppConfigDTO appConfig) {
+		List<String> disabledNodesList = new ArrayList<>();
+		// read the disabled config properties file for app configs.
+		parseStrCommaList(environment.getProperty(APP_CODE_PREFIX + appConfig.getAppCode()+ MAIN_APPCODE_DISABLED_URI_LIST), disabledNodesList);
+		if(!disabledNodesList.isEmpty()) {
+			Map<String, StatusDTO> consolidatedNodeCodeStatusMap = appConfig.getConsolidatedNodeCodeStatusMap();
+			for(String nodeCode: disabledNodesList) {
+				StatusDTO statusDTO = consolidatedNodeCodeStatusMap.get(nodeCode);
+				if(statusDTO!=null) {
+					statusDTO.setActive(false);
+				}
+			}
 		}
 	}
 	
@@ -571,6 +589,7 @@ public class HealthCheckService {
 			connection.setRequestMethod(HTTP_GET);
 			int code = connection.getResponseCode();
 			healthCheckModel.setResponseTime(new Date());
+			healthCheckModel.setResponseData(connection.getResponseMessage());
 			logger.info("App URL: \"{}\" Health check status code: {} ", appUri, code);
 			if(code == HttpURLConnection.HTTP_OK){
 				logger.info("{} App URL is reachable ..", appUri);
